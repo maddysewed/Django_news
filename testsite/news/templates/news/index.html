@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }} :: {{ block.super }}
+{% endblock %}
+
+{% block news_cnt %} {{ block.super }} {% endblock %}
+
+{% block sidebar %}
+{% include "inc/_sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% for n in news %}
+{% if n.is_published %}
+<div class="card">
+    <h5 class="card-header"> Дата публикации: {{ n.date }}</h5>
+    <div class="card-body">
+        <div class="media">
+            {% if n.photo %}
+            <img src="{{ n.photo.url }}" alt="" class="img-fluid img-left me-3 float-start" width="450"
+                 height="450">
+            {% else %}
+            <img src="https://www.tsum.by/upload/no-photo.png" alt=""
+                 class="img-fluid img-left me-3 float-start" width="200" height="200">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="card-title {% cycle 'text-danger' 'text-success' %}">{{ n.title }}</h5>
+                <p class="card-text">{{ n.content|truncatewords:50|linebreaks }}</p>
+                <a href="{% url 'news_item' n.pk %}" class="btn btn-outline-dark">Читать полностью</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer text-muted">Категория: <a href="{{ n.category.get_absolute_url }}"> {{ n.category }}</a>
+</div>
+{% endif %}
+{% empty %}
+<li> Ooooops...</li>
+{% endfor %}
+
+{% block pagination %} {{ block.super }} {% endblock %}
+
+{% endblock %}

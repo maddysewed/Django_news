@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+Добавить новость :: {{ block.super }}
+{% endblock %}
+
+{% block news_cnt %}{% endblock %}
+
+{% block sidebar %}
+{% include "inc/_sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<h1> Добавление новости </h1>
+
+<form enctype="multipart/form-data" action="{% url 'add_news' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    {{ form.non_field.errors }}
+
+    {% comment %}
+    <div class="mb-3">
+        <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}:</label>
+        {{ form.title }}
+        <div class="invalid-feedback">{{ form.title.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}:</label>
+        {{ form.content }}
+        <div class="invalid-feedback">{{ form.content.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.is_published.id_for_label }}" class="form-label">{{ form.is_published.label }}:</label>
+        {{ form.is_published }}
+        <div class="invalid-feedback">{{ form.is_published.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}:</label>
+        {{ form.category }}
+        <div class="invalid-feedback">{{ form.category.errors }}</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.photo.id_for_label }}" class="form-label">{{ form.photo.label }}:</label>
+        {{ form.photo }}
+        <div class="invalid-feedback">{{ form.photo.errors }}</div>
+    </div>
+    {% endcomment %}
+
+    {% comment %}
+    {% for item in form %}
+    <div class="form-group">
+        {{ item.label }}:
+        {{ item }}
+        <div class="invalid-feedback">{{ item.errors }}</div>
+    </div>
+    <br>
+    {% endfor %}
+    {% endcomment %}
+
+    <button type="submit" class="btn btn-outline-dark">Добавить</button>
+</form>
+
+{% endblock %}

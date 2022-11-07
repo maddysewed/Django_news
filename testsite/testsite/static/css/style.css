@@ -1,0 +1,7 @@
+body {
+    background-color: #e3d1c1;
+}
+.errorlist {
+    list-style: none;
+    color: red;
+}

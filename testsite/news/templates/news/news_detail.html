@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ news_item.title }} :: {{ block.super }}
+{% endblock %}
+
+{% block news_cnt %}{% endblock %}
+
+{% block sidebar %}
+{% include "inc/_sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h5 class="card-header"> Дата публикации: {{ news_item.date }}</h5>
+    <div class="card-body">
+        <div class="media">
+            <div class="media-body">
+                <h5 class="card-title">{{ news_item.title }}</h5>
+                <p class="card-text">{{ news_item.content|safe|linebreaks }}</p>
+            </div>
+            {% if news_item.photo %}
+            <img src="{{ news_item.photo.url }}" alt="" class="img-fluid img-left me-3 float-start" width="450"
+                 height="450">
+            {% else %}
+            <img src="https://www.tsum.by/upload/no-photo.png" alt=""
+                 class="img-fluid img-left me-3 float-start" width="200" height="200">
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="card-footer text-muted">Категория: <a href="{{ category.get_absolute_url }}"> {{ news_item.category }}</a>
+</div>
+{% endblock %}
+
+{% block pagination %}{% endblock %}
