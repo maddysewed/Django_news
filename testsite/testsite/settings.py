@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'news.apps.NewsConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [
