@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/png" href="{% static 'cat.ico' %}"/>
-
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -22,7 +20,10 @@
     {% block news_cnt %} Всего новостей: {{ news.count }}{% endblock %}
     <div class="row">
         <div class="col-md-3">
-            {% block sidebar %}{% endblock %}
+            {% load cache %}
+            {% cache 500 sidebar %}
+            {% block sidebar %} {% include "inc/_sidebar.html" %} {% endblock %}
+            {% endcache %}
         </div>
         <div class="col-md-9">
 
